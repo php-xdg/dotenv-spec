@@ -1,0 +1,89 @@
+[
+  {
+    "desc": "valid but unrecognized characters",
+    "input": "a=a$~ b=\"b$)\"",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "a$~"},
+      {"kind":  "Assign", "value":  "b"},
+      {"kind":  "Characters", "value":  "b$)"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "simple expansions",
+    "input": "a=$abc b=\"$xyz\"",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "SimpleExpansion", "value":  "abc"},
+      {"kind":  "Assign", "value":  "b"},
+      {"kind":  "SimpleExpansion", "value":  "xyz"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "simple expansions flush the temporary buffer",
+    "input": "a=a$b~ b=\"b$c)\"",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "a"},
+      {"kind":  "SimpleExpansion", "value":  "b"},
+      {"kind":  "Characters", "value":  "~"},
+      {"kind":  "Assign", "value":  "b"},
+      {"kind":  "Characters", "value":  "b"},
+      {"kind":  "SimpleExpansion", "value":  "c"},
+      {"kind":  "Characters", "value":  ")"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "unsupported command or arithmetic expansion",
+    "input": "a=$(pwd)",
+    "error": "ParseError"
+  },
+  {
+    "desc": "double-quoted command or arithmetic expansion",
+    "input": "a=\"$(pwd)\"",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported $@ parameter",
+    "input": "a=$@",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported $* parameter",
+    "input": "a=$*",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported $# parameter",
+    "input": "a=$#",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported $? parameter",
+    "input": "a=$?",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported $$ parameter",
+    "input": "a=$$",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported $! parameter",
+    "input": "a=$!",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported $- parameter",
+    "input": "a=$-",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported $0 parameter",
+    "input": "a=$0",
+    "error": "ParseError"
+  }
+]

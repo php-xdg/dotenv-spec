@@ -1,0 +1,80 @@
+[
+  {
+    "desc": "unterminated expansion",
+    "input": "a=${a-\\",
+    "error": "ParseError"
+  },
+  {
+    "desc": "line continuation",
+    "input": "a=${a-a\\\nb}",
+    "expected": [
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "Characters", "value":  "ab"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "escaped special characters, quoting level = 0",
+    "input": "a=${a-\\\"\\$\\`\\\\}",
+    "expected": [
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "Characters", "value":  "\"$`\\"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "escaped special characters, quoting level = 1",
+    "input": "a=\"${a-\\\"\\$\\`\\\\}\"",
+    "expected": [
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "Characters", "value":  "\"$`\\"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "nested expansion, quoting level = 1",
+    "input": "a=\"${a-${b-${c-\\$\\a}}}\"",
+    "expected": [
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "StartExpansion", "value":  "b"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "StartExpansion", "value":  "c"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "Characters", "value":  "$\\a"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "nested/mixed expansions & quoting levels",
+    "input": "a=${a-\"${b-\\$\\a}\"${c-\\$\\a}}",
+    "expected": [
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "StartExpansion", "value":  "b"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "Characters", "value":  "$\\a"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "StartExpansion", "value":  "c"},
+      {"kind": "ExpansionOperator", "value":  "-"},
+      {"kind": "Characters", "value":  "$a"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EOF", "value":  ""}
+    ]
+  }
+]

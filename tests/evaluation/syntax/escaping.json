@@ -1,0 +1,56 @@
+[
+  {
+    "input": "a=a\\",
+    "expected": {
+      "a": "a\\"
+    },
+    "desc": "backslash at EOF"
+  },
+  {
+    "input": "a=\"b\\\"c\"",
+    "expected": {
+      "a": "b\"c"
+    },
+    "desc": "escaped double-quote in double-quoted string"
+  },
+  {
+    "input": "a='b'\\''c'",
+    "expected": {
+      "a": "b'c"
+    },
+    "desc": "escaped single-quote in unquoted string"
+  },
+  {
+    "input": "a='b\\'c'",
+    "desc": "wrong single-quote escaping",
+    "error": "ParseError"
+  },
+  {
+    "input": "a=b\\ c",
+    "expected": {
+      "a": "b c"
+    },
+    "desc": "escaped space in unquoted string"
+  },
+  {
+    "input": "a=\\$b",
+    "expected": {
+      "a": "$b"
+    },
+    "desc": "escaped $ in unquoted value does not invoke expansion"
+  },
+  {
+    "input": "a=\"\\$b\"",
+    "expected": {
+      "a": "$b"
+    },
+    "desc": "escaped $ in double-quoted value does not invoke expansion"
+  },
+  {
+    "input": "a=\"\\o\"",
+    "expected": {
+      "a": "\\o"
+    },
+    "desc": "escaped non-special character is returned verbatim"
+  }
+]

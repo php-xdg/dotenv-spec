@@ -1,0 +1,83 @@
+[
+  {
+    "desc": "simple expansions",
+    "input": "a=${abc} b=\"${xyz}\"",
+    "expected": [
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "SimpleExpansion", "value":  "abc"},
+      {"kind": "Assign", "value":  "b"},
+      {"kind": "SimpleExpansion", "value":  "xyz"},
+      {"kind": "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "simple expansions flush the temporary buffer",
+    "input": "a=a${b}c b=\"x${y}z\"",
+    "expected": [
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "Characters", "value":  "a"},
+      {"kind": "SimpleExpansion", "value":  "b"},
+      {"kind": "Characters", "value":  "c"},
+      {"kind": "Assign", "value":  "b"},
+      {"kind": "Characters", "value":  "x"},
+      {"kind": "SimpleExpansion", "value":  "y"},
+      {"kind": "Characters", "value":  "z"},
+      {"kind": "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "invalid expansion character",
+    "input": "a=${\n}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "invalid expansion identifier",
+    "input": "a=${a&b}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${@} parameter",
+    "input": "a=${@}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${*} parameter",
+    "input": "a=${*}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${#} parameter",
+    "input": "a=${#}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${?} parameter",
+    "input": "a=${?}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${$} parameter",
+    "input": "a=${$}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${!} parameter",
+    "input": "a=${!}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${-} parameter",
+    "input": "a=${-}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${0} parameter",
+    "input": "a=${0}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported ${42} parameter",
+    "input": "a=${42}",
+    "error": "ParseError"
+  }
+]

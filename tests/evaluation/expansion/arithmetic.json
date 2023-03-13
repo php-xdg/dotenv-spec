@@ -1,0 +1,29 @@
+[
+  {
+    "input": "a=$((2+2))",
+    "error": "ParseError",
+    "desc": "arithmetic expansion in unquoted value"
+  },
+  {
+    "input": "a=\"$((2+2))\"",
+    "error": "ParseError",
+    "desc": "arithmetic expansion in double-quoted value"
+  },
+  {
+    "input": "a='$((2+2))'",
+    "expected":  {
+      "a": "$((2+2))"
+    },
+    "desc": "arithmetic expansion in single-quoted value has no effect"
+  },
+  {
+    "input": "a=${a:-$((2+2))}",
+    "error": "ParseError",
+    "desc": "arithmetic expansion in unquoted expansion"
+  },
+  {
+    "input": "a=\"${a:-$((2+2))}\"",
+    "error": "ParseError",
+    "desc": "arithmetic expansion in double-quoted expansion"
+  }
+]

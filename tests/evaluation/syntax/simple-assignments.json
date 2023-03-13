@@ -1,0 +1,67 @@
+[
+  {
+    "input": "foo=",
+    "expected": {
+      "foo": ""
+    },
+    "desc": "empty value"
+  },
+  {
+    "input": "foo=bar",
+    "expected": {
+      "foo": "bar"
+    },
+    "desc": "unquoted value"
+  },
+  {
+    "input": "foo='bar'",
+    "expected": {
+      "foo": "bar"
+    },
+    "desc": "single-quoted value"
+  },
+  {
+    "input": "foo=\"bar\"",
+    "expected": {
+      "foo": "bar"
+    },
+    "desc": "double-quoted value"
+  },
+  {
+    "input": "foo=bar bar=baz",
+    "expected": {
+      "foo": "bar",
+      "bar": "baz"
+    },
+    "desc": "supports multiple assignments per line"
+  },
+  {
+    "input": "a='b\nc'\nd=\"e\nf\"",
+    "expected": {
+      "a": "b\nc",
+      "d": "e\nf"
+    },
+    "desc": "supports multiline values in quoted strings"
+  },
+  {
+    "input": "a=1 a=2",
+    "expected": {
+      "a": "2"
+    },
+    "desc": "duplicated identifier => last value wins"
+  },
+  {
+    "input": "A= B=\nC=",
+    "expected": {
+      "A": "",
+      "B": "",
+      "C": ""
+    },
+    "desc": "whitespace or newline or EOF after equal sign ends the value"
+  },
+  {
+    "input": "a= \"b\"",
+    "error": "ParseError",
+    "desc": "invalid whitespace after equal sign"
+  }
+]

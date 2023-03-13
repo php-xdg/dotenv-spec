@@ -1,0 +1,30 @@
+[
+  {
+    "input": "\nfoo=${NOPE:-foo\\\n    bar}",
+    "expected": {
+      "foo": "foo    bar"
+    },
+    "desc": "line continuation in unquoted expansion"
+  },
+  {
+    "input": "\nfoo=\"${NOPE:-foo\\\n    bar}\"",
+    "expected": {
+      "foo": "foo    bar"
+    },
+    "desc": "line continuation in double-quoted expansion"
+  },
+  {
+    "input": "\nfoo='${NOPE:-foo\\\n    bar}'",
+    "expected": {
+      "foo": "${NOPE:-foo\\\n    bar}"
+    },
+    "desc": "no line continuations in single-quoted expansions"
+  },
+  {
+    "input": "\nfoo=\"${NOPE:-'foo\\\n    bar'}\"",
+    "expected": {
+      "foo": "'foo    bar'"
+    },
+    "desc": "line continuation in single-quoted expansion in double-quoted string"
+  }
+]

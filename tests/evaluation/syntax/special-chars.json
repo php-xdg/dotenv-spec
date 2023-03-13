@@ -1,0 +1,14 @@
+[
+  {
+    "input": "a=a&b",
+    "error": "ParseError",
+    "desc": "Unescaped & in unquoted string"
+  },
+  {
+    "input": "a=\"a&b\"",
+    "expected": {
+      "a": "a&b"
+    },
+    "desc": "& in double-quoted string"
+  }
+]

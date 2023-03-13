@@ -1,0 +1,34 @@
+[
+  {
+    "desc": "single-quoted string",
+    "input": "a='a'",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "a"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "single-quoted strings switch back to the return state",
+    "input": "a=a'b'c",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "abc"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "backslash in single-quoted string is not interpreted",
+    "input": "a='a\\$b'",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "a\\$b"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "unterminated single-quoted string",
+    "input": "a='a",
+    "error": "ParseError"
+  }
+]

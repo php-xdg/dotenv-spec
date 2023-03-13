@@ -1,0 +1,35 @@
+[
+  {
+    "desc": "expansion operators, no value",
+    "input": "a=${a:-} a=${a:+} a=${a:=} a=${a:?}",
+    "expected": [
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  ":-"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  ":+"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  ":="},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "Assign", "value":  "a"},
+      {"kind": "StartExpansion", "value":  "a"},
+      {"kind": "ExpansionOperator", "value":  ":?"},
+      {"kind": "EndExpansion", "value":  "}"},
+      {"kind": "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "unexpected character in expansion operator state",
+    "input": "a=${a:|b}",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unterminated expansion",
+    "input": "a=${a:",
+    "error": "ParseError"
+  }
+]

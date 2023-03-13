@@ -1,0 +1,27 @@
+[
+  {
+    "input": "\nfoo=1#2\nbar='1'#2\nbaz=\"1\"#2\n    ",
+    "expected": {
+      "foo": "1#2",
+      "bar": "1#2",
+      "baz": "1#2"
+    },
+    "desc": "# inside value is not a comment"
+  },
+  {
+    "input": "\nfoo=1 # a comment\nbar='1' # a comment\nbaz=\"1\" # a comment\n    ",
+    "expected": {
+      "foo": "1",
+      "bar": "1",
+      "baz": "1"
+    },
+    "desc": "# after unquoted value starts a comment"
+  },
+  {
+    "input": "# first=1\na=b\n# last=1",
+    "expected": {
+      "a": "b"
+    },
+    "desc": "ignores comments at start/end of input"
+  }
+]

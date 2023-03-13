@@ -1,0 +1,16 @@
+[
+  {
+    "input": "a='foo'bar\"baz\"",
+    "expected": {
+      "a": "foobarbaz"
+    },
+    "desc": "works w/ all quoting styles"
+  },
+  {
+    "input": "a=a\\\n'b'\\\n\"c\"",
+    "expected": {
+      "a": "abc"
+    },
+    "desc": "supports POSIX-style line continuations"
+  }
+]

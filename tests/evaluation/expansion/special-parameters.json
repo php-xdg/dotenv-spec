@@ -1,0 +1,398 @@
+[
+    {
+        "input": "a=$@",
+        "error": "ParseError",
+        "desc": "$@ in unquoted string"
+    },
+    {
+        "input": "a=${@}",
+        "error": "ParseError",
+        "desc": "${@} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$@}",
+        "error": "ParseError",
+        "desc": "$@ in unquoted expansion"
+    },
+    {
+        "input": "a=\"$@\"",
+        "error": "ParseError",
+        "desc": "$@ in double-quoted string"
+    },
+    {
+        "input": "a=\"${@}\"",
+        "error": "ParseError",
+        "desc": "${@} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$@}\"",
+        "error": "ParseError",
+        "desc": "$@ in double-quoted expansion"
+    },
+    {
+        "input": "a='$@'",
+        "expected": {
+            "a": "$@"
+        },
+        "desc": "$@ in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${@}'",
+        "expected": {
+            "a": "${@}"
+        },
+        "desc": "${@} in single-quoted string has no effect"
+    },
+    {
+        "input": "a=$*",
+        "error": "ParseError",
+        "desc": "$* in unquoted string"
+    },
+    {
+        "input": "a=${*}",
+        "error": "ParseError",
+        "desc": "${*} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$*}",
+        "error": "ParseError",
+        "desc": "$* in unquoted expansion"
+    },
+    {
+        "input": "a=\"$*\"",
+        "error": "ParseError",
+        "desc": "$* in double-quoted string"
+    },
+    {
+        "input": "a=\"${*}\"",
+        "error": "ParseError",
+        "desc": "${*} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$*}\"",
+        "error": "ParseError",
+        "desc": "$* in double-quoted expansion"
+    },
+    {
+        "input": "a='$*'",
+        "expected": {
+            "a": "$*"
+        },
+        "desc": "$* in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${*}'",
+        "expected": {
+            "a": "${*}"
+        },
+        "desc": "${*} in single-quoted string has no effect"
+    },
+    {
+        "input": "a=$#",
+        "error": "ParseError",
+        "desc": "$# in unquoted string"
+    },
+    {
+        "input": "a=${#}",
+        "error": "ParseError",
+        "desc": "${#} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$#}",
+        "error": "ParseError",
+        "desc": "$# in unquoted expansion"
+    },
+    {
+        "input": "a=\"$#\"",
+        "error": "ParseError",
+        "desc": "$# in double-quoted string"
+    },
+    {
+        "input": "a=\"${#}\"",
+        "error": "ParseError",
+        "desc": "${#} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$#}\"",
+        "error": "ParseError",
+        "desc": "$# in double-quoted expansion"
+    },
+    {
+        "input": "a='$#'",
+        "expected": {
+            "a": "$#"
+        },
+        "desc": "$# in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${#}'",
+        "expected": {
+            "a": "${#}"
+        },
+        "desc": "${#} in single-quoted string has no effect"
+    },
+    {
+        "input": "a=$?",
+        "error": "ParseError",
+        "desc": "$? in unquoted string"
+    },
+    {
+        "input": "a=${?}",
+        "error": "ParseError",
+        "desc": "${?} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$?}",
+        "error": "ParseError",
+        "desc": "$? in unquoted expansion"
+    },
+    {
+        "input": "a=\"$?\"",
+        "error": "ParseError",
+        "desc": "$? in double-quoted string"
+    },
+    {
+        "input": "a=\"${?}\"",
+        "error": "ParseError",
+        "desc": "${?} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$?}\"",
+        "error": "ParseError",
+        "desc": "$? in double-quoted expansion"
+    },
+    {
+        "input": "a='$?'",
+        "expected": {
+            "a": "$?"
+        },
+        "desc": "$? in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${?}'",
+        "expected": {
+            "a": "${?}"
+        },
+        "desc": "${?} in single-quoted string has no effect"
+    },
+    {
+        "input": "a=$-",
+        "error": "ParseError",
+        "desc": "$- in unquoted string"
+    },
+    {
+        "input": "a=${-}",
+        "error": "ParseError",
+        "desc": "${-} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$-}",
+        "error": "ParseError",
+        "desc": "$- in unquoted expansion"
+    },
+    {
+        "input": "a=\"$-\"",
+        "error": "ParseError",
+        "desc": "$- in double-quoted string"
+    },
+    {
+        "input": "a=\"${-}\"",
+        "error": "ParseError",
+        "desc": "${-} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$-}\"",
+        "error": "ParseError",
+        "desc": "$- in double-quoted expansion"
+    },
+    {
+        "input": "a='$-'",
+        "expected": {
+            "a": "$-"
+        },
+        "desc": "$- in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${-}'",
+        "expected": {
+            "a": "${-}"
+        },
+        "desc": "${-} in single-quoted string has no effect"
+    },
+    {
+        "input": "a=$$",
+        "error": "ParseError",
+        "desc": "$$ in unquoted string"
+    },
+    {
+        "input": "a=${$}",
+        "error": "ParseError",
+        "desc": "${$} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$$}",
+        "error": "ParseError",
+        "desc": "$$ in unquoted expansion"
+    },
+    {
+        "input": "a=\"$$\"",
+        "error": "ParseError",
+        "desc": "$$ in double-quoted string"
+    },
+    {
+        "input": "a=\"${$}\"",
+        "error": "ParseError",
+        "desc": "${$} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$$}\"",
+        "error": "ParseError",
+        "desc": "$$ in double-quoted expansion"
+    },
+    {
+        "input": "a='$$'",
+        "expected": {
+            "a": "$$"
+        },
+        "desc": "$$ in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${$}'",
+        "expected": {
+            "a": "${$}"
+        },
+        "desc": "${$} in single-quoted string has no effect"
+    },
+    {
+        "input": "a=$!",
+        "error": "ParseError",
+        "desc": "$! in unquoted string"
+    },
+    {
+        "input": "a=${!}",
+        "error": "ParseError",
+        "desc": "${!} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$!}",
+        "error": "ParseError",
+        "desc": "$! in unquoted expansion"
+    },
+    {
+        "input": "a=\"$!\"",
+        "error": "ParseError",
+        "desc": "$! in double-quoted string"
+    },
+    {
+        "input": "a=\"${!}\"",
+        "error": "ParseError",
+        "desc": "${!} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$!}\"",
+        "error": "ParseError",
+        "desc": "$! in double-quoted expansion"
+    },
+    {
+        "input": "a='$!'",
+        "expected": {
+            "a": "$!"
+        },
+        "desc": "$! in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${!}'",
+        "expected": {
+            "a": "${!}"
+        },
+        "desc": "${!} in single-quoted string has no effect"
+    },
+    {
+        "input": "a=$0",
+        "error": "ParseError",
+        "desc": "$0 in unquoted string"
+    },
+    {
+        "input": "a=${0}",
+        "error": "ParseError",
+        "desc": "${0} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$0}",
+        "error": "ParseError",
+        "desc": "$0 in unquoted expansion"
+    },
+    {
+        "input": "a=\"$0\"",
+        "error": "ParseError",
+        "desc": "$0 in double-quoted string"
+    },
+    {
+        "input": "a=\"${0}\"",
+        "error": "ParseError",
+        "desc": "${0} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$0}\"",
+        "error": "ParseError",
+        "desc": "$0 in double-quoted expansion"
+    },
+    {
+        "input": "a='$0'",
+        "expected": {
+            "a": "$0"
+        },
+        "desc": "$0 in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${0}'",
+        "expected": {
+            "a": "${0}"
+        },
+        "desc": "${0} in single-quoted string has no effect"
+    },
+    {
+        "input": "a=$10",
+        "error": "ParseError",
+        "desc": "$10 in unquoted string"
+    },
+    {
+        "input": "a=${10}",
+        "error": "ParseError",
+        "desc": "${10} in unquoted string"
+    },
+    {
+        "input": "a=${NOPE:-$10}",
+        "error": "ParseError",
+        "desc": "$10 in unquoted expansion"
+    },
+    {
+        "input": "a=\"$10\"",
+        "error": "ParseError",
+        "desc": "$10 in double-quoted string"
+    },
+    {
+        "input": "a=\"${10}\"",
+        "error": "ParseError",
+        "desc": "${10} in double-quoted string"
+    },
+    {
+        "input": "a=\"${NOPE:-$10}\"",
+        "error": "ParseError",
+        "desc": "$10 in double-quoted expansion"
+    },
+    {
+        "input": "a='$10'",
+        "expected": {
+            "a": "$10"
+        },
+        "desc": "$10 in single-quoted string has no effect"
+    },
+    {
+        "input": "a='${10}'",
+        "expected": {
+            "a": "${10}"
+        },
+        "desc": "${10} in single-quoted string has no effect"
+    }
+]

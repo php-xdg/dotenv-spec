@@ -1,0 +1,102 @@
+[
+  {
+    "input": "a=\"a $ b\"",
+    "expected": {
+      "a": "a $ b"
+    },
+    "desc": "lone dollar in quoted string is not an expansion"
+  },
+  {
+    "input": "a=a$'b'$\"c\"",
+    "expected": {
+      "a": "a$b$c"
+    },
+    "desc": "lone dollar in unquoted string is not an expansion"
+  },
+  {
+    "input": "a=$",
+    "expected": {
+      "a": "$"
+    },
+    "desc": "lone dollar at EOF in unquoted string is not an expansion"
+  },
+  {
+    "input": "a=$:",
+    "expected": {
+      "a":  "$:"
+    },
+    "desc": "dollar followed by non-identifier, non-special character is not an expansion"
+  },
+  {
+    "input": "a=${foo",
+    "error": "ParseError",
+    "desc": "Missing closing brace in expansion"
+  },
+  {
+    "input": "a=${:",
+    "error": "ParseError",
+    "desc": "Invalid character after open brace in expansion"
+  },
+  {
+    "input": "a=1 b=$a c=\"$a\" d='$a'",
+    "expected": {
+      "a": "1",
+      "b": "1",
+      "c": "1",
+      "d": "$a"
+    },
+    "env": {},
+    "desc": "picks value from local scope when not present in global"
+  },
+  {
+    "input": "a=1 b=$a c=\"$a\" d='$a'",
+    "expected": {
+      "a": "0",
+      "b": "0",
+      "c": "0",
+      "d": "$a"
+    },
+    "env": {
+      "a": "0"
+    },
+    "desc": "golbal scope wins over local scope"
+  },
+  {
+    "input": "a=$b b=\"$b\" c='$b'",
+    "expected": {
+      "a": "1",
+      "b": "1",
+      "c": "$b"
+    },
+    "env": {
+      "b": "1"
+    },
+    "desc": "picks value from global scope when not present in local"
+  },
+  {
+    "input": "a=1 b=${a} c=\"${a}\" d='${a}'",
+    "expected": {
+      "a": "1",
+      "b": "1",
+      "c": "1",
+      "d": "${a}"
+    },
+    "desc": "braced identifier"
+  },
+  {
+    "input": "a=nic b=frob${a}ate",
+    "expected": {
+      "a": "nic",
+      "b": "frobnicate"
+    },
+    "desc": "composite value in unquoted string"
+  },
+  {
+    "input": "a=bar b=\"foo${a}baz\"",
+    "expected": {
+      "a": "bar",
+      "b": "foobarbaz"
+    },
+    "desc": "composite value in double-quoted string"
+  }
+]

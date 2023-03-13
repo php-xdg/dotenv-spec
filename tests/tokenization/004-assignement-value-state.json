@@ -1,0 +1,75 @@
+[
+  {
+    "desc": "simple raw values",
+    "input": "A=a B=1\tC=yes",
+    "expected": [
+      {"kind":  "Assign", "value":  "A"},
+      {"kind":  "Characters", "value":  "a"},
+      {"kind":  "Assign", "value":  "B"},
+      {"kind":  "Characters", "value":  "1"},
+      {"kind":  "Assign", "value":  "C"},
+      {"kind":  "Characters", "value":  "yes"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "escaping",
+    "input": "any=\\(\\n\\|\\t\\)\\ \\&\\\tX eof=\\",
+    "expected": [
+      {"kind":  "Assign", "value":  "any"},
+      {"kind":  "Characters", "value":  "(n|t) &\tX"},
+      {"kind":  "Assign", "value":  "eof"},
+      {"kind":  "Characters", "value":  "\\"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "line continuation",
+    "input": "a=cont\\\ninue",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "continue"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "unsupported backtick expansion",
+    "input": "a=`pwd`",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unescaped | (reserved shell character)",
+    "input": "a=a|b",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unescaped & (reserved shell character)",
+    "input": "a=a&b",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unescaped ; (reserved shell character)",
+    "input": "a=a;b",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unescaped < (reserved shell character)",
+    "input": "a=1<2",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unescaped > (reserved shell character)",
+    "input": "a=2>1",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unescaped ( (reserved shell character)",
+    "input": "a=a(b",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unescaped ) (reserved shell character)",
+    "input": "a=a)b",
+    "error": "ParseError"
+  }
+]

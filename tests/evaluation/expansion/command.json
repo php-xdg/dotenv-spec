@@ -1,0 +1,56 @@
+[
+  {
+    "input": "a=$(pwd)",
+    "error": "ParseError",
+    "desc": "$() command expansion in unquoted value"
+  },
+  {
+    "input": "a=`pwd`",
+    "error": "ParseError",
+    "desc": "backtick command expansion in unquoted value"
+  },
+  {
+    "input": "a=\"$(pwd)\"",
+    "error": "ParseError",
+    "desc": "$() command expansion in double-quoted value"
+  },
+  {
+    "input": "a=\"`pwd`\"",
+    "error": "ParseError",
+    "desc": "backtick command expansion in double-quoted value"
+  },
+  {
+    "input": "a='$(pwd)'",
+    "expected": {
+      "a":  "$(pwd)"
+    },
+    "desc": "$() command expansion in single-quoted value has no effect"
+  },
+  {
+    "input": "a='`pwd`'",
+    "expected": {
+      "a":  "`pwd`"
+    },
+    "desc": "backtick command expansion in single-quoted value has no effect"
+  },
+  {
+    "input": "a=${a:-$(pwd)}",
+    "error": "ParseError",
+    "desc": "$() command expansion in unquoted expansion"
+  },
+  {
+    "input": "a=\"${a:-$(pwd)}\"",
+    "error": "ParseError",
+    "desc": "$() command expansion in double-quoted expansion"
+  },
+  {
+    "input": "a=${a:-`pwd`}",
+    "error": "ParseError",
+    "desc": "backtick command expansion in unquoted expansion"
+  },
+  {
+    "input": "a=\"${a:-`pwd`}\"",
+    "error": "ParseError",
+    "desc": "backtick command expansion in double-quoted expansion"
+  }
+]

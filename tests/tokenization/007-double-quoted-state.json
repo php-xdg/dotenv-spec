@@ -1,0 +1,62 @@
+[
+  {
+    "desc": "double-quoted string",
+    "input": "a=\"a\"",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "a"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "double-quoted strings switch back to the return state",
+    "input": "a=a\"b\"c",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "abc"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "line continuation",
+    "input": "a=\"a\\\nb\"",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "ab"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "special characters are properly escaped",
+    "input": "a=\"a\\\"b\\$c\\`d\\\\e\"",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "a\"b$c`d\\e"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "non-special characters are not escaped",
+    "input": "a=\"a\\n\\|\\ \\&\\t\"",
+    "expected": [
+      {"kind":  "Assign", "value":  "a"},
+      {"kind":  "Characters", "value":  "a\\n\\|\\ \\&\\t"},
+      {"kind":  "EOF", "value":  ""}
+    ]
+  },
+  {
+    "desc": "unterminated double-quoted string",
+    "input": "a=\"a",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unterminated double-quoted string in escape state",
+    "input": "a=\"a\\",
+    "error": "ParseError"
+  },
+  {
+    "desc": "unsupported backtick expansion in double-quoted string",
+    "input": "a=\"`pwd`\"",
+    "error": "ParseError"
+  }
+]
