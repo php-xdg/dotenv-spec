@@ -15,7 +15,7 @@ The goal of this repository is to
 * provide detailed algorithms for [tokenizing](tokenization.md) and [parsing](parsing.md) said syntax,
   [evaluating](evaluation.md) the generated AST to produce a set of environment variables
   and [export](exporting.md) them to the current process environment.
-* provide language-agnostic [conformance tests](./tests) in machine-readable format.
+* provide language-agnostic [conformance tests](tests.md) in machine-readable format.
 
 
 ## Table of contents
@@ -25,3 +25,4 @@ The goal of this repository is to
 * [parsing](parsing.md)
 * [evaluation](evaluation.md)
 * [exporting](exporting.md)
+* [tests](tests.md)
