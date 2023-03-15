@@ -40,26 +40,32 @@ The `<whitespace>` characters are:
 * `<space>` (U+0020 SPACE).
 * `<tab>` (U+0009 TAB).
 
-A dotenv file is a list of [assignment](#assignment-expressions) expressions,
+A dotenv file consists of a list of [assignment expressions](#assignment-expressions),
 separated by one or more `<whitespace>` and/or `<newline>` characters,
 and optionally preceded or followed by any number of [comment](#comments) expressions.
 
 
 ## Assignment expressions
 
-An `<assignment>` expression is of the form: `<identifier>=<value>`.
+An assignment expression consists of:
+* an [identifier](#identifiers),
+* followed by a `=` (U+003D EQUALS SIGN) character,
+* optionally followed by an [assignment value](#assignment-values).
 
-An `<identifier>` starts with an ASCII alpha or underscore,
+`<whitespace>` is not allowed between the `<identifier>` and the equal sign.
+
+The assignment value stops at the first `<whitespace>` or `<newline>` character that is neither escaped nor quoted.
+
+
+## Identifiers
+
+An identifier starts with an ASCII alpha or underscore (`_` U+005F LOW LINE),
 optionally followed by any number of ASCII alpha, ASCII digit or underscores.
 
 In other words, an identifier matches the following regular expression:
 ```regexp
 [a-zA-Z_][a-zA-Z0-9_]*
 ```
-
-`<whitespace>` is not allowed between the `<indentifier>` and the equal sign.
-The `<value>` stops at the first `<whitespace>` or `<newline>` character that is neither escaped nor quoted.
-
 
 ## Assignment values
 
@@ -79,15 +85,17 @@ FOO=foo'bar'"baz"
 ```
 
 
-### Escape character (backslash)
+## Escape character
 
-A `<backslash>` (ASCII code 0x5C) character can be used as an escape character
-in unquoted and double-quoted strings, to preserve the literal value of the following character.
+A `<backslash>` (`\` U+005C REVERSE SOLIDUS) character can be used as an escape character
+in [unquoted](#unquoted-strings) and [double-quoted](#double-quoted-strings) strings,
+to preserve the literal value of the following character.
+It has no effect in [single-quoted](#single-quoted-strings) strings.
 
-It has no effect in single-quoted strings.
+## Line continuation
 
-In unquoted and double-quoted strings, if a `<newline>` follows the `<backslash>`,
-this is interpreted as a line continuation (the `<backslash>` and `<newline>` are entirely ignored).
+In unquoted and double-quoted strings, if a `<newline>` follows a `<backslash>`,
+the `<backslash>` and `<newline>` are entirely ignored.
 
 In the following example, all variables evaluate to `foobar`:
 
@@ -99,7 +107,7 @@ bar"
 ```
 
 
-### Unquoted strings
+## Unquoted strings
 
 A `<whitespace>` or `<newline>` character cannot occur inside an unquoted string unless escaped with a `<backslash>`.
 
@@ -108,24 +116,32 @@ A `<whitespace>` or `<newline>` character cannot occur inside an unquoted string
 The following characters have a special meaning in shell scripts
 and MUST be escaped in unquoted strings:
 
-```
-|  &  ;  <  >  (  )  `
-```
+* `|` (U+007C VERTICAL LINE)
+* `&` (U+0026 AMPERSAND)
+* `;` (U+003B SEMICOLON)
+* `<` (U+003C LESS-THAN SIGN)
+* `>` (U+003E GREATER-THAN SIGN)
+* `(` (U+0028 LEFT PARENTHESIS)
+* `)` (U+0029 RIGHT PARENTHESIS)
+* `` ` `` (U+0060 GRAVE ACCENT)
 
 Additionally, the following characters must be escaped if they are to represent themselves:
 
-```
-" ' $ <backslash> <space> <tab>
-```
+* `"` (U+0022 QUOTATION MARK)
+* `'` (U+0027 APOSTROPHE)
+* `$` (U+0024 DOLLAR SIGN)
+* `<backslash>` (U+005C REVERSE SOLIDUS)
+* `<space>` (U+0020 SPACE)
+* `<tab>` (U+0009 TAB)
 
 
-### Single-quoted strings
+## Single-quoted strings
 
-Single-quoted strings are sequences of characters enclosed in single quotes `'` (ASCII code 0x27).
+Single-quoted strings are sequences of characters enclosed in single quotes (`'` U+0027 APOSTROPHE).
 
 Single-quoted strings **preserve the literal value** of each character within the single-quotes.
 
-Variable expansion does not occur in unquoted strings.
+Parameter expansion does not occur in unquoted strings.
 
 A single-quote CANNOT occur within single-quotes.
 
@@ -141,9 +157,9 @@ FOO='foo'"'"'bar'
 ```
 
 
-### Double-quoted strings
+## Double-quoted strings
 
-Double-quoted strings are sequences of characters enclosed in double quotes `"` (ASCII code 0x22).
+Double-quoted strings are sequences of characters enclosed in double quotes (`"` U+0022 QUOTATION MARK).
 
 A `<backslash>` character before a `"`, `$` or `\` preserves the literal meaning of the following character.
 
@@ -152,16 +168,70 @@ A `<backslash>` preceding a `<newline>` is interpreted as a line continuation.
 [Parameter expansion](#parameter-expansion) occurs in double-quoted strings.
 
 
+## Parameter expansion
+
+The POSIX-compliant dotenv syntax implements the following subset of the POSIX
+[parameter expansion](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02)
+specification.
+
+Parameter expansions some in two forms: simple expansions and complex expansions.
+
+### Simple expansions
+
+Simple expansions start with a `$` character (U+0024 DOLLAR SIGN),
+followed by an [identifier](#assignment-expressions)
+optionally enclosed in curly braces (`{` U+007B LEFT CURLY BRACKET, `}` U+007D RIGHT CURLY BRACKET).
+
+```sh
+FOO='foo'
+A=$FOO
+B="$FOO"
+C=${FOO}
+D="${FOO}"
+```
+
+Both the simple forms `$FOO` and `${FOO}` are strictly equivalent to the complex form `${FOO-}`.
+
+### Complex expansions
+
+TODO
+
+`${<identifier><operator><value>}`
+
+There are eight possible operators:
+* `-` (U+002D HYPHEN-MINUS)
+* `:-` (U+003A COLON, U+002D HYPHEN-MINUS)
+* `=` (U+003D EQUALS SIGN)
+* `:=` (U+003A COLON, U+003D EQUALS SIGN)
+* `+` (U+002B PLUS SIGN)
+* `:+` (U+003A COLON, U+002B PLUS SIGN)
+* `?` (U+003F QUESTION MARK)
+* `:?` (U+003A COLON, U+003F QUESTION MARK)
+
+| expression    | `LHS` is set and not empty | `LHS` is set but empty | `LHS` is not set       |
+|---------------|----------------------------|------------------------|------------------------|
+| `${LHS:-rhs}` | use the value of `$LHS`    | use the value of `rhs` | use the value of `rhs` |
+| `${LHS-rhs}`  | use the value of `$LHS`    | use the empty string   | use the value of `rhs` |
+| `${LHS:=rhs}` | use the value of `$LHS`    | assign `rhs` to `LHS`  | assign `rhs` to `LHS`  |
+| `${LHS=rhs}`  | use the value of `$LHS`    | use the empty string   | assign `rhs` to `LHS`  |
+| `${LHS:?rhs}` | use the value of `$LHS`    | error                  | error                  |
+| `${LHS?rhs}`  | use the value of `$LHS`    | use the empty string   | error                  |
+| `${LHS:+rhs}` | use the value of `rhs`     | use the empty string   | use the empty string   |
+| `${LHS+rhs}`  | use the value of `rhs`     | use the value of `rhs` | use the empty string   |
+
+
+
 ## Comments
 
-A `<comment>` starts with the `#` character (ASCII 0x23) and continues up to (but not including) the next `<newline>` character.
+A `<comment>` starts with the `#` character (U+0023 NUMBER SIGN)
+and continues up to (but not including) the next `<newline>` character.
 
 The `#` character starts a comment if all the following conditions hold:
-* it is not escaped (preceded by a `<backslash>` character)
-* it does not appear inside a single or double-quoted string
+* it is not [escaped](#escape-character) (preceded by a `<backslash>` character)
+* it does not appear inside a [single](#single-quoted-strings) or [double-quoted](#double-quoted-strings) string
 * it is either:
   * the first character in the file
-  * preceded by a `<whitespace>` or `<newline>` character that is not escaped
+  * preceded by a `<whitespace>` or `<newline>` character that is not [escaped](#escape-character)
 
 In the following example, all variables evaluate to `im#not-a-comment`:
 
@@ -187,44 +257,3 @@ C="im" # a comment
 D=im\
   # a comment
 ```
-
-## Parameter expansion
-
-The POSIX-compliant dotenv syntax implements the following subset of the POSIX
-[parameter expansion](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02)
-specification.
-
-Parameter expansions some in two forms: simple expansions and complex expansions.
-
-### Simple expansions
-
-Simple expansions start with a `$` character,
-followed by an [identifier](#assignment-expressions)
-optionally enclosed in curly braces.
-
-```sh
-FOO='foo'
-A=$FOO
-B="$FOO"
-C=${FOO}
-D="${FOO}"
-```
-
-Both the simple forms `$FOO` and `${FOO}` are strictly equivalent to the complex form `${FOO-}`.
-
-### Complex expansions
-
-TODO
-
-`${<identifier><operator><value>}`
-
-| expression    | `LHS` is set and not empty | `LHS` is set but empty | `LHS` is not set       |
-|---------------|----------------------------|------------------------|------------------------|
-| `${LHS:-rhs}` | use the value of `$LHS`    | use the value of `rhs` | use the value of `rhs` |
-| `${LHS-rhs}`  | use the value of `$LHS`    | use the empty string   | use the value of `rhs` |
-| `${LHS:=rhs}` | use the value of `$LHS`    | assign `rhs` to `LHS`  | assign `rhs` to `LHS`  |
-| `${LHS=rhs}`  | use the value of `$LHS`    | use the empty string   | assign `rhs` to `LHS`  |
-| `${LHS:?rhs}` | use the value of `$LHS`    | error                  | error                  |
-| `${LHS?rhs}`  | use the value of `$LHS`    | use the empty string   | error                  |
-| `${LHS:+rhs}` | use the value of `rhs`     | use the empty string   | use the empty string   |
-| `${LHS+rhs}`  | use the value of `rhs`     | use the value of `rhs` | use the empty string   |
