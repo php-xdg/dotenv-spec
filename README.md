@@ -1,28 +1,27 @@
 # POSIX-compliant dotenv syntax specification
 
-## Relation to POSIX
+## Rationale
 
-The POSIX-compliant dotenv syntax is a subset of the
-[POSIX shell command language specification](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html).
+Using dotenv files for application configuration is a widespread practice.
 
-Conforming implementations MUST follows the rules in the aforementioned specification for:
-* variable assignment
-* [parameter expansion](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02)
-* [quote removal](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_07)
+While numerous implementations are available in a wide variety of languages,
+there is currently no specification for this file format.
+This result in a multitude of different syntaxes, all vaguely resembling the POSIX shell
+but fundamentally incompatible due to slightly divergent behaviours.
 
-Conforming implementations MUST apply the restrictions to the former rules that are defined in this document.
+The goal of this repository is to
+* specify a dotenv syntax that is 100% compatible with the
+  [POSIX shell syntax](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html),
+* provide detailed algorithms for [tokenizing](tokenization.md) and [parsing](parsing.md) said syntax,
+  [evaluating](evaluation.md) the generated AST to produce a set of environment variables
+  and [export](exporting.md) them to the current process environment.
+* provide language-agnostic [conformance tests](./tests) in machine-readable format.
 
-In conforming implementations, the following features
-MUST NOT be supported AND result in a parse error:
-* [positional parameters](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_05_01)
-* [special parameters](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_05_02)
-* [command substitution](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_03)
-* [arithmetic expansion](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_04)
-* string-length expansion (`${#name}`)
-* pattern-matching expansions (`${name%pattern}`, `${name%%pattern}`, `${name#pattern}`, `${name##pattern}`)
 
-In conforming implementations, the following MUST NOT be performed:
-* [tilde expansion](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_01)
-* [pathname expansion](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_06)
-* [field splitting](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_05)
+## Table of contents
 
+* [Syntax overview](syntax.md)
+* [tokenization](tokenization.md)
+* [parsing](parsing.md)
+* [evaluation](evaluation.md)
+* [exporting](exporting.md)
