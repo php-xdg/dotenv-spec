@@ -50,5 +50,10 @@
     "desc": "unsupported command expansion",
     "input": "a=${a:-`pwd`}",
     "error": "ParseError"
+  },
+  {
+    "desc": "invalid <NUL> character in expansion value",
+    "input": "FOO=${BAR-\u0000}",
+    "error": "ParseError"
   }
 ]

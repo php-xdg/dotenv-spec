@@ -30,5 +30,10 @@
     "desc": "unterminated single-quoted string",
     "input": "a='a",
     "error": "ParseError"
+  },
+  {
+    "desc": "invalid <NUL> character in single-quoted string",
+    "input": "FOO='\u0000'",
+    "error": "ParseError"
   }
 ]

@@ -76,5 +76,10 @@
       {"kind": "EndExpansion", "value":  "}"},
       {"kind": "EOF", "value":  ""}
     ]
+  },
+  {
+    "desc": "escaped <NUL> character in expansion value",
+    "input": "FOO=${BAR-\\\u0000}",
+    "error": "ParseError"
   }
 ]

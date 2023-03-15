@@ -58,5 +58,10 @@
     "desc": "unsupported backtick expansion in double-quoted string",
     "input": "a=\"`pwd`\"",
     "error": "ParseError"
+  },
+  {
+    "desc": "invalid <NUL> character in double-quoted string",
+    "input": "FOO=\"\u0000\"",
+    "error": "ParseError"
   }
 ]

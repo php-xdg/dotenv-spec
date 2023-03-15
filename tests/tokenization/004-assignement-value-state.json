@@ -71,5 +71,10 @@
     "desc": "unescaped ) (reserved shell character)",
     "input": "a=a)b",
     "error": "ParseError"
+  },
+  {
+    "desc": "invalid <NUL> character in assignment value",
+    "input": "FOO=bar\u0000",
+    "error": "ParseError"
   }
 ]

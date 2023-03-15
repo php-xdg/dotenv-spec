@@ -63,5 +63,15 @@
     "desc": "invalid character in assignment name",
     "input": "AB[0]",
     "error": "ParseError"
+  },
+  {
+    "desc": "invalid <NUL> character in assignment list",
+    "input": "\u0000",
+    "error": "ParseError"
+  },
+  {
+    "desc": "invalid <NUL> character in assignment name",
+    "input": "FOO\u0000",
+    "error": "ParseError"
   }
 ]
