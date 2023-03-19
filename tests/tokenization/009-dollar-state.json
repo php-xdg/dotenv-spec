@@ -94,5 +94,10 @@
     "desc": "unsupported $0 parameter",
     "input": "a=$0",
     "error": "ParseError"
+  },
+  {
+    "desc": "<NUL> character in dollar state",
+    "input": "a=$\u0000",
+    "error": "ParseError"
   }
 ]

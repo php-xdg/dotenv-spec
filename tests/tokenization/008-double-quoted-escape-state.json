@@ -1,0 +1,7 @@
+[
+  {
+    "desc": "escaped <NUL> character in double-quoted string",
+    "input": "a=\"\\\u0000\"",
+    "error": "ParseError"
+  }
+]

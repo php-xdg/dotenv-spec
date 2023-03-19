@@ -26,6 +26,16 @@
     ]
   },
   {
+    "desc": "EOF",
+    "input": "a=${",
+    "error": "ParseError"
+  },
+  {
+    "desc": "<NUL> character",
+    "input": "a=${\u0000",
+    "error": "ParseError"
+  },
+  {
     "desc": "invalid expansion character",
     "input": "a=${\n}",
     "error": "ParseError"

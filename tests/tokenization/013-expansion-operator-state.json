@@ -23,6 +23,11 @@
     ]
   },
   {
+    "desc": "<NUL> character",
+    "input": "a=${a:\u0000}",
+    "error": "ParseError"
+  },
+  {
     "desc": "unexpected character in expansion operator state",
     "input": "a=${a:|b}",
     "error": "ParseError"

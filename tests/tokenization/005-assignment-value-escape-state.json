@@ -1,0 +1,7 @@
+[
+  {
+    "desc": "escaped <NUL> character in assignment value",
+    "input": "a=\\\u0000",
+    "error": "ParseError"
+  }
+]

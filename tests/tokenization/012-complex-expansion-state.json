@@ -26,5 +26,10 @@
     "desc": "unterminated expansion",
     "input": "a=${a",
     "error": "ParseError"
+  },
+  {
+    "desc": "<NUL> character",
+    "input": "a=${a\u0000}",
+    "error": "ParseError"
   }
 ]

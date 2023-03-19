@@ -1,0 +1,7 @@
+[
+  {
+    "desc": "<NUL> character in simple-expansion state",
+    "input": "a=$a\u0000",
+    "error": "ParseError"
+  }
+]

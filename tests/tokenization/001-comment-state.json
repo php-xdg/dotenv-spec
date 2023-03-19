@@ -1,0 +1,7 @@
+[
+  {
+    "desc": "<NUL> character in comment state",
+    "input": "# a null (\u0000) character",
+    "error": "ParseError"
+  }
+]
