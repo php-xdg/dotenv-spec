@@ -24,15 +24,16 @@ The current token is the last token to have been consumed.
 ### Parsing an assignment list
 
 * Let `node-list` be a new empty list.
+* Consume the [next token](#next-token).
 * loop:
-  * Consume the [next token](#next-token).
+  * Switch on the [current token](#current-token):
     * `EOF`:
       * return `node-list`.
     * `Assign`:
       * let `node` be the result of [parsing an assignment](#parsing-an-assignment).
       * append `node` to `node-list`.
     * anything else:
-      * Parse error. 
+      * Parse error.
 
 ### Parsing an assignment
 
