@@ -3,21 +3,21 @@
     "desc": "empty input",
     "input": "",
     "expected": [
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "EOF", "value": ""}
     ]
   },
   {
     "desc": "whitespace only",
     "input": "  \t  \n  ",
     "expected": [
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "EOF", "value": ""}
     ]
   },
   {
     "desc": "comments only",
     "input": "# start\n  # mid  \n# end",
     "expected": [
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "EOF", "value": ""}
     ]
   },
   {
@@ -34,29 +34,29 @@
     "desc": "single character assignment name",
     "input": "A=",
     "expected": [
-      {"kind":  "Assign", "value":  "A"},
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "Assign", "value": "A"},
+      {"kind": "EOF", "value": ""}
     ]
   },
   {
     "desc": "multi-character assignment names",
     "input": "A0=\n__XXX__=\nB_C=",
     "expected": [
-      {"kind":  "Assign", "value":  "A0"},
-      {"kind":  "Assign", "value":  "__XXX__"},
-      {"kind":  "Assign", "value":  "B_C"},
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "Assign", "value": "A0"},
+      {"kind": "Assign", "value": "__XXX__"},
+      {"kind": "Assign", "value": "B_C"},
+      {"kind": "EOF", "value": ""}
     ]
   },
   {
     "desc": "multiple assignment names",
     "input": "A=\nB= C=\t D=",
     "expected": [
-      {"kind":  "Assign", "value":  "A"},
-      {"kind":  "Assign", "value":  "B"},
-      {"kind":  "Assign", "value":  "C"},
-      {"kind":  "Assign", "value":  "D"},
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "Assign", "value": "A"},
+      {"kind": "Assign", "value": "B"},
+      {"kind": "Assign", "value": "C"},
+      {"kind": "Assign", "value": "D"},
+      {"kind": "EOF", "value": ""}
     ]
   },
   {

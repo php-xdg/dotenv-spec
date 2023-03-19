@@ -3,15 +3,15 @@
     "desc": "",
     "input": "A=\"${NOPE:-'foo}'\"\nB=\"}bar\"",
     "expected": [
-      {"kind":  "Assign", "value":  "A"},
-      {"kind":  "StartExpansion", "value":  "NOPE"},
-      {"kind":  "ExpansionOperator", "value":  ":-"},
-      {"kind":  "Characters", "value":  "'foo"},
-      {"kind":  "EndExpansion", "value":  "}"},
-      {"kind":  "Characters", "value":  "'"},
-      {"kind":  "Assign", "value":  "B"},
-      {"kind":  "Characters", "value":  "}bar"},
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "Assign", "value": "A"},
+      {"kind": "StartExpansion", "value": "NOPE"},
+      {"kind": "ExpansionOperator", "value": ":-"},
+      {"kind": "Characters", "value": "'foo"},
+      {"kind": "EndExpansion", "value": "}"},
+      {"kind": "Characters", "value": "'"},
+      {"kind": "Assign", "value": "B"},
+      {"kind": "Characters", "value": "}bar"},
+      {"kind": "EOF", "value": ""}
     ]
   }
 ]

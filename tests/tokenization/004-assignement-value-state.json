@@ -3,33 +3,33 @@
     "desc": "simple raw values",
     "input": "A=a B=1\tC=yes",
     "expected": [
-      {"kind":  "Assign", "value":  "A"},
-      {"kind":  "Characters", "value":  "a"},
-      {"kind":  "Assign", "value":  "B"},
-      {"kind":  "Characters", "value":  "1"},
-      {"kind":  "Assign", "value":  "C"},
-      {"kind":  "Characters", "value":  "yes"},
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "Assign", "value": "A"},
+      {"kind": "Characters", "value": "a"},
+      {"kind": "Assign", "value": "B"},
+      {"kind": "Characters", "value": "1"},
+      {"kind": "Assign", "value": "C"},
+      {"kind": "Characters", "value": "yes"},
+      {"kind": "EOF", "value": ""}
     ]
   },
   {
     "desc": "escaping",
     "input": "any=\\(\\n\\|\\t\\)\\ \\&\\\tX eof=\\",
     "expected": [
-      {"kind":  "Assign", "value":  "any"},
-      {"kind":  "Characters", "value":  "(n|t) &\tX"},
-      {"kind":  "Assign", "value":  "eof"},
-      {"kind":  "Characters", "value":  "\\"},
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "Assign", "value": "any"},
+      {"kind": "Characters", "value": "(n|t) &\tX"},
+      {"kind": "Assign", "value": "eof"},
+      {"kind": "Characters", "value": "\\"},
+      {"kind": "EOF", "value": ""}
     ]
   },
   {
     "desc": "line continuation",
     "input": "a=cont\\\ninue",
     "expected": [
-      {"kind":  "Assign", "value":  "a"},
-      {"kind":  "Characters", "value":  "continue"},
-      {"kind":  "EOF", "value":  ""}
+      {"kind": "Assign", "value": "a"},
+      {"kind": "Characters", "value": "continue"},
+      {"kind": "EOF", "value": ""}
     ]
   },
   {

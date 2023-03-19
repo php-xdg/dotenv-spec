@@ -22,14 +22,14 @@
   {
     "input": "a='$(pwd)'",
     "expected": {
-      "a":  "$(pwd)"
+      "a": "$(pwd)"
     },
     "desc": "$() command expansion in single-quoted value has no effect"
   },
   {
     "input": "a='`pwd`'",
     "expected": {
-      "a":  "`pwd`"
+      "a": "`pwd`"
     },
     "desc": "backtick command expansion in single-quoted value has no effect"
   },

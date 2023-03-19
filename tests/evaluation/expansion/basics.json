@@ -23,7 +23,7 @@
   {
     "input": "a=$:",
     "expected": {
-      "a":  "$:"
+      "a": "$:"
     },
     "desc": "dollar followed by non-identifier, non-special character is not an expansion"
   },

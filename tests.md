@@ -19,9 +19,9 @@ Each test file consist of a JSON-encoded array of test cases in the following fo
     // An array of expected tokens that must be returned in order for the test to pass,
     // i.e. assert(tokenize(input) === expected)
     "expected": [
-      {"kind":  "Assign", "value":  "FOO"},
-      {"kind":  "Characters", "value":  "bar"},
-      {"kind":  "EOF", "value":  ""},
+      {"kind": "Assign", "value": "FOO"},
+      {"kind": "Characters", "value": "bar"},
+      {"kind": "EOF", "value": ""},
     ]
   },
   // Or an error test-case:
