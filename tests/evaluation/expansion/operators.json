@@ -76,5 +76,54 @@
       "a": ""
     },
     "desc": ":+ operator skips over nested expansions"
+  },
+  {
+    "desc": "? errors propagate to -",
+    "input": "a=${a-${b?}}",
+    "error": "UndefinedVariable"
+  },
+  {
+    "desc": "? errors propagate to :-",
+    "input": "a=${a:-${b?}}",
+    "error": "UndefinedVariable"
   }
+,
+  {
+    "desc": "? errors propagate to +",
+    "input": "a=${b+${c?}}",
+    "env": {"b": ""},
+    "error": "UndefinedVariable"
+  }
+,
+  {
+    "desc": "? errors propagate to :+",
+    "input": "a=${b:+${c?}}",
+    "env": {"b": "b"},
+    "error": "UndefinedVariable"
+  }
+,
+  {
+    "desc": "? errors propagate to =",
+    "input": "a=${a=${b?}}",
+    "error": "UndefinedVariable"
+  }
+,
+  {
+    "desc": "? errors propagate to :=",
+    "input": "a=${a:=${b?}}",
+    "error": "UndefinedVariable"
+  }
+,
+  {
+    "desc": "? errors propagate to ?",
+    "input": "a=${a?${b?}}",
+    "error": "UndefinedVariable"
+  }
+,
+  {
+    "desc": "? errors propagate to :?",
+    "input": "a=${a:?${b?}}",
+    "error": "UndefinedVariable"
+  }
+
 ]
